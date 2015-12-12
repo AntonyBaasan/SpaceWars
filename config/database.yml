@@ -29,9 +29,9 @@ test:
 production:
  adapter: postgresql
  encoding: utf8
- database: d9l69ovn4d0pob #spacecity
+ database: d6o64kc213ji7h #spacecity
  pool: 5
- username: pvxmzvpjbiwdjy
- password: -CQt-DIh2wvBDiSU3x76BzVj_I
+ username: haufffyjqqmufo
+ password: 3mRfOAZZbhqgEsxah22TeyAWji
  host: ec2-107-21-222-62.compute-1.amazonaws.com
  port: 5432
