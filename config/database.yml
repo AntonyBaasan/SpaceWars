@@ -33,5 +33,5 @@ production:
  pool: 5
  username: haufffyjqqmufo
  password: 3mRfOAZZbhqgEsxah22TeyAWji
- host: ec2-107-21-222-62.compute-1.amazonaws.com
+ host: ec2-54-83-59-203.compute-1.amazonaws.com
  port: 5432
