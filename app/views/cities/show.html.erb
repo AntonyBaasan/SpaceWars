@@ -1,0 +1,38 @@
+<div ng-app="cityModule" ng-cloak>
+
+  <div ng-controller="cityController" >
+    My name is: {{name}}
+
+  </div>
+</div>
+
+
+  <p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @city.name %>
+</p>
+
+<p>
+  <strong>Locked:</strong>
+  <%= @city.locked %>
+</p>
+
+<p>
+  <strong>Stone:</strong>
+  <%= @city.stone %>
+</p>
+
+<p>
+  <strong>Wood:</strong>
+  <%= @city.wood %>
+</p>
+
+<p>
+  <strong>Population:</strong>
+  <%= @city.population %>
+</p>
+
+<%= link_to 'Edit', edit_city_path(@city) %> |
+<%= link_to 'Back', cities_path %>
