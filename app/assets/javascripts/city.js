@@ -4,7 +4,7 @@
 
 var cityModule = angular.module("cityModule", ['ngResource']);
 
-cityModule.controller('cityController', ["$scope", '$window','serviceBuilding', '$http', 'serviceUnit', function($scope, $window, serviceBuilding, $http, serviceUnit) {
+cityModule.controller('cityController', ["$scope", '$window','serviceBuilding', '$http', 'serviceUnit', 'serviceCity', function($scope, $window, serviceBuilding, $http, serviceUnit, serviceCity) {
 
     $scope.name = "antony";
     serviceBuilding.getAllBuildings().then(function(response) {
@@ -99,6 +99,22 @@ cityModule.controller('cityController', ["$scope", '$window','serviceBuilding', 
         },function(response){
             toastr.error('Can\'t delete: '+response.data.error)
         });
+    };
+
+
+    $scope.GetAllFighterCities = function(){
+        serviceCity.getFighterCities().then(function(response) {
+
+            $scope.fighterCities = response.data;
+
+        },function(response){
+            toastr.error('Can\'t find any enemies');
+        });
+    };
+
+
+    $scope.CloseAllModals = function(){
+        $('.modal').modal('hide');
     };
 
 

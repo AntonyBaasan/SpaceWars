@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
+  get 'cities/fighterslist' => 'cities#fighters_list'
   resources :cities
 
   get 'buildings' => 'buildings#index'
@@ -19,7 +20,6 @@ Rails.application.routes.draw do
   delete 'buildings/:id' => 'buildings#destroy'
   get 'buildings/collect/:id' => 'buildings#collect'
 
-  resources :units
   get 'units' => 'units#index'
   post 'units' => 'units#create'
   delete 'units/:id' => 'units#destroy'

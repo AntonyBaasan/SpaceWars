@@ -1,5 +1,5 @@
 class CitiesController < ApplicationController
-  before_action :set_city #, only: [:show, :edit, :update, :destroy]
+  before_action :set_city #, only: [:show, :edit, :update, :destroy, :fighters_list]
 
   # GET /cities
   # GET /cities.json
@@ -58,16 +58,19 @@ class CitiesController < ApplicationController
   end
 
   # GET /cities/fighterslist/
-  def index
-    @cities = City.select()
-    @city_hash = cookies[:city_hash]
+  def fighters_list
+    # @cities = City.select(:id,:name).sample(20)
+    @cities = City.select(:id,:name).where().not(id: @city.id).limit(20).order("RANDOM()")
+    # @cities(@city.id)
+    render json: @cities, status: :ok
   end
 
   # GET /cities/fight/:emeny_id
-  def index
-    @cities = City.select()
-    @city_hash = cookies[:city_hash]
-  end
+  # def fight
+  #   @cities = City.select()
+  #   render json: {error: "Not enough resources!"}, status: :unprocessable_entity and return
+  #
+  # end
 
 
   # DELETE /cities/1
