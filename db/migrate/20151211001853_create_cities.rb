@@ -3,8 +3,8 @@ class CreateCities < ActiveRecord::Migration
     create_table :cities do |t|
       t.string :name
       t.boolean :locked
-      t.integer :stone, default: 0
-      t.integer :wood, default: 0
+      t.integer :stone, default: 50
+      t.integer :wood, default: 50
       t.integer :population
 
       t.timestamps null: false

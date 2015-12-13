@@ -65,20 +65,20 @@ class UnitsController < ApplicationController
     puts "typeId: "+typeId.to_s
 
     if (typeId == 1)
-      required_stone = 10
-      required_wood = 10
+      required_stone = 100
+      required_wood = 100
       newUnit = Unit.new(name: "type1", unit_type: typeId, attack:10, defence: 10, city: city)
     elsif (typeId == 2)
-      required_stone = 15
-      required_wood = 15
+      required_stone = 150
+      required_wood = 150
       newUnit = Unit.new(name: "type2", unit_type: typeId, attack:10, defence: 10, city: city)
     elsif (typeId == 3)
-      required_stone = 30
-      required_wood = 60
+      required_stone = 300
+      required_wood = 500
       newUnit = Unit.new(name: "type3", unit_type: typeId, attack:10, defence: 10, city: city)
     elsif (typeId == 4)
-      required_stone = 100
-      required_wood = 80
+      required_stone = 1000
+      required_wood = 800
       newUnit = Unit.new(name: "type4", unit_type: typeId, attack:10, defence: 10, city: city)
     end
 
