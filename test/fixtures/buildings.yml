@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  collect_minute: 1
+  last_collect: 2015-12-12
+  amount: 1
+  resource_type: MyString
+  city: 
+
+two:
+  collect_minute: 1
+  last_collect: 2015-12-12
+  amount: 1
+  resource_type: MyString
+  city: 

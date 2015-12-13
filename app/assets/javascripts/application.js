@@ -13,4 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require angular/angular
+//= require angular-resource/angular-resource
+//= require bootstrap-sass-official/assets/javascripts/bootstrap
+//= require city
+//= require_tree ./services
 //= require_tree .
