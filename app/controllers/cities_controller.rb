@@ -57,23 +57,36 @@ class CitiesController < ApplicationController
     end
   end
 
+  # GET /cities/fighterslist/
+  def index
+    @cities = City.select()
+    @city_hash = cookies[:city_hash]
+  end
+
+  # GET /cities/fight/:emeny_id
+  def index
+    @cities = City.select()
+    @city_hash = cookies[:city_hash]
+  end
+
+
   # DELETE /cities/1
   # DELETE /cities/1.json
-  def destroy
-
-    if(!@city)
-      notice = 'City is already deleted.'
-    else
-      notice = 'City was successfully destroyed.'
-      @city.destroy
-      cookies.delete(:city_hash)
-    end
-
-    respond_to do |format|
-      format.html { redirect_to cities_url, notice: notice }
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #
+  #   if(!@city)
+  #     notice = 'City is already deleted.'
+  #   else
+  #     notice = 'City was successfully destroyed.'
+  #     @city.destroy
+  #     cookies.delete(:city_hash)
+  #   end
+  #
+  #   respond_to do |format|
+  #     format.html { redirect_to cities_url, notice: notice }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -85,7 +98,7 @@ class CitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def city_params
-      params.require(:city).permit(:name, :locked, :stone, :wood, :population)
+      params.require(:city).permit(:name, :locked, :city_type)
     end
 
     def generate_unique_hash

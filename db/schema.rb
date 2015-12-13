@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151213071250) do
+ActiveRecord::Schema.define(version: 20151213072236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20151213071250) do
     t.string   "city_hash"
     t.integer  "max_building_amount", default: 20
     t.integer  "max_army_amount",     default: 20
+    t.integer  "city_type"
   end
 
   add_index "cities", ["city_hash"], name: "index_cities_on_city_hash", using: :btree
