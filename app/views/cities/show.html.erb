@@ -1,9 +1,13 @@
-<div ng-app="cityModule" ng-cloak>
+<div ng-app="cityModule" ng-cloak ng-init="city.stone=<%= @city.stone %>;city.wood=<%= @city.wood %>;city.max_building_amount=<%= @city.max_building_amount %>;city.max_army_amount=<%= @city.max_building_amount %>">
 
   <div ng-controller="cityController" >
+    <p id="notice"><%= notice %></p>
+
+    <%= link_to 'Edit', edit_city_path(@city) %> |
+    <%= link_to 'Back', cities_path %>
     <p>
       <strong>Ship Name:</strong>
-      <%= @city.name %>
+      <p><%= @city.name %></p>
     </p>
 
     <p>
@@ -12,13 +16,14 @@
     </p>
 
     <p>
-      <strong>Stone:</strong>
-      <%= @city.stone %>
+        <strong>Stone:</strong>
+        <p>{{city.stone}}</p>
+
     </p>
 
     <p>
-      <strong>Wood:</strong>
-      <%= @city.wood %>
+        <strong>Wood:</strong>
+        <p>{{city.wood}}</p>
     </p>
 
     <p>
@@ -60,8 +65,8 @@
 
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#buildings" aria-controls="buildings" role="tab" data-toggle="tab">Buildings ({{buildings.length}})</a></li>
-        <li role="presentation"><a href="#army" aria-controls="profile" role="tab" data-toggle="tab">Fighter Ships</a></li>
+        <li role="presentation" class="active"><a href="#buildings" aria-controls="buildings" role="tab" data-toggle="tab">Buildings ({{buildings.length}}/{{city.max_building_amount}})</a></li>
+        <li role="presentation"><a href="#army" aria-controls="profile" role="tab" data-toggle="tab">Fighter Ships ({{units.length}}/{{city.max_army_amount}})</a></li>
         <!--<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>-->
         <!--<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>-->
       </ul>
@@ -86,10 +91,18 @@
         </div>
         <div role="tabpanel" class="tab-pane fade" id="army">
           <div id="army">
-            <button type="button" class="btn btn-sm btn-default">Build Ship Type1 (gem-10,energy-10)</button>
-            <button type="button" class="btn btn-sm btn-default">Build Ship Type2 (gem-25,energy-20)</button>
-            <button type="button" class="btn btn-sm btn-default">Build Ship Type3 (gem-40,energy-50)</button>
-            <button type="button" class="btn btn-sm btn-default">Build Ship Type4 (gem-70,energy-30)</button>
+            <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(1)">Build Ship Type1 (gem-10,energy-10)</button>
+            <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(2)">Build Ship Type2 (gem-25,energy-20)</button>
+            <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(3)">Build Ship Type3 (gem-40,energy-50)</button>
+            <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(4)">Build Ship Type4 (gem-70,energy-30)</button>
+          </div>
+
+          <p> Fighter Ships list </p>
+          <div data-ng-repeat="unit in units">
+            <div>
+              {{unit}}
+              <button type="button" class="btn btn-sm btn-default" ng-click="DeleteUnit(unit)">Delete</button>
+            </div>
           </div>
 
         </div>
@@ -103,35 +116,6 @@
     <br/>
 
 
-    <p id="notice"><%= notice %></p>
-
-    <p>
-      <strong>Name:</strong>
-      <%= @city.name %>
-    </p>
-
-    <p>
-      <strong>Locked:</strong>
-      <%= @city.locked %>
-    </p>
-
-    <p>
-      <strong>Stone:</strong>
-      <%= @city.stone %>
-    </p>
-
-    <p>
-      <strong>Wood:</strong>
-      <%= @city.wood %>
-    </p>
-
-    <p>
-      <strong>Population:</strong>
-      <%= @city.population %>
-    </p>
-
-    <%= link_to 'Edit', edit_city_path(@city) %> |
-    <%= link_to 'Back', cities_path %>
 
   </div>
 </div>
