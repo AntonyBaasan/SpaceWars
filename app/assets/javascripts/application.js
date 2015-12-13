@@ -15,6 +15,7 @@
 //= require angular/angular
 //= require angular-resource/angular-resource
 //= require bootstrap-sass-official/assets/javascripts/bootstrap
+//= require toastr/toastr
 //= require city
 //= require_tree ./services
 //= require_tree .

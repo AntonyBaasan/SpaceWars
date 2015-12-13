@@ -1,7 +1,31 @@
 <div ng-app="cityModule" ng-cloak>
 
   <div ng-controller="cityController" >
-    My name is: {{name}}
+    <p>
+      <strong>Ship Name:</strong>
+      <%= @city.name %>
+    </p>
+
+    <p>
+      <strong>Locked:</strong>
+      <%= @city.locked %>
+    </p>
+
+    <p>
+      <strong>Stone:</strong>
+      <%= @city.stone %>
+    </p>
+
+    <p>
+      <strong>Wood:</strong>
+      <%= @city.wood %>
+    </p>
+
+    <p>
+      <strong>Population:</strong>
+      <%= @city.population %>
+    </p>
+
 
     <!-- Fight button -->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#fightModal">
@@ -16,26 +40,13 @@
             <h4 class="modal-title" id="myModalLabel">Fight with enemies</h4>
           </div>
           <div class="modal-body">
-            {Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-
-
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-
-            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
-
-            paragraphs
-            words
-            bytes
-            lists
-
-            Start with 'Lorem
-            ipsum dolor sit amet...'
-
-            Time tracking for freelancers}
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled it to make a type
+            specimen book. It has survived not only five centuries, but also the leap into electronic
+            typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
+            release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+            publishing software like Aldus PageMaker including versions of Lorem Ipsum.
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -49,8 +60,8 @@
 
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#buildings" aria-controls="buildings" role="tab" data-toggle="tab">Buildings</a></li>
-        <li role="presentation"><a href="#army" aria-controls="profile" role="tab" data-toggle="tab">Army</a></li>
+        <li role="presentation" class="active"><a href="#buildings" aria-controls="buildings" role="tab" data-toggle="tab">Buildings ({{buildings.length}})</a></li>
+        <li role="presentation"><a href="#army" aria-controls="profile" role="tab" data-toggle="tab">Fighter Ships</a></li>
         <!--<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>-->
         <!--<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>-->
       </ul>
@@ -59,12 +70,16 @@
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="buildings">
           <div id="factories">
-            <button type="button" class="btn btn-sm btn-default">Build Gem mining</button>
-            <button type="button" class="btn btn-sm btn-default">Build Starport</button>
+            <button type="button" class="btn btn-sm btn-default" ng-click="CreateBuilding(1)">Build Gem mining</button>
+            <button type="button" class="btn btn-sm btn-default" ng-click="CreateBuilding(2)">Build Starport</button>
 
             <p> Building list </p>
             <div data-ng-repeat="building in buildings">
-              <div>{{building}}</div>
+              <div>
+                {{building}}
+                <button type="button" class="btn btn-sm btn-default" ng-click="Collect(building)">Collect</button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="DeleteBuilding(building)">Delete</button>
+              </div>
             </div>
           </div>
 
