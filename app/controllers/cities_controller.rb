@@ -87,7 +87,6 @@ class CitiesController < ApplicationController
       render json: {error: "Can't find current enemy!"}, status: :unprocessable_entity and return
     end
 
-
     myAttack,myDefence = @city.units.sum(:attack, :defence)
     enemyAttack = @enemyCity.units.sum(:attack)
 
@@ -119,10 +118,10 @@ class CitiesController < ApplicationController
     end
 
     City.transaction do
-      if @city.save && @enemyCity.save
+      if @city.save! && @enemyCity.save!
         render json: {notice: notice}, status: :ok and return
       else
-        render json: {notice: "Fight cancellad"}, status: :unprocessable_entity
+        render json: {error: "Fight cancellad"}, status: :unprocessable_entity
         raise ActiveRecord::Rollback
       end
     end
