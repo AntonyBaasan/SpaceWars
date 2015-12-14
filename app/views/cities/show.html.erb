@@ -1,29 +1,34 @@
 <div ng-app="cityModule" ng-cloak
-     ng-init="city.stone=<%= @city.stone %>;city.wood=<%= @city.wood %>;city.max_building_amount=<%= @city.max_building_amount %>;city.max_army_amount=<%= @city.max_army_amount%>;city.lose=<%= @city.lose %>;city.win=<%= @city.win %>;city.population=<%= @city.population %>">
+     ng-init="city.stone=<%= @city.stone %>;city.wood=<%= @city.wood %>;city.max_building_amount=<%= @city.max_building_amount %>;city.max_army_amount=<%= @city.max_army_amount %>;city.lose=<%= @city.lose %>;city.win=<%= @city.win %>;city.population=<%= @city.population %>">
 
-  <div ng-controller="cityController" >
+  <div ng-controller="cityController">
     <div class="row">
       <div class="col-xs-9 col-md-9">
         <div class="panel panel-default panel-transparent">
           <div class="panel-body">
 
             <p id="notice"><%= notice %></p>
+
             <div class="container-fluid">
               <div class="row">
                 <div class="col-xs-3">
                   <strong>Ship Name:</strong>
-                  <p><%= @city.name %>(<%= link_to 'change', edit_city_path(@city) %>)</p>
+
+                  <p><%= @city.name %> (<%= link_to 'change', edit_city_path(@city) %>)</p>
                 </div>
                 <div class="col-xs-3">
                   <strong>XP:</strong>
+
                   <p>{{city.population}}</p>
                 </div>
                 <div class="col-xs-3">
                   <strong>Stone:</strong>
+
                   <p>{{city.stone}}</p>
                 </div>
                 <div class="col-xs-3">
                   <strong>Wood:</strong>
+
                   <p>{{city.wood}}</p>
                 </div>
               </div>
@@ -31,17 +36,19 @@
                 <div class="col-xs-3">
                   <!-- Fight button -->
                   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#fightModal" ng-click="GetAllFighterCities()">
-                    Fight
+                    Battle
                   </button>
                 </div>
                 <div class="col-xs-3">
                 </div>
                 <div class="col-xs-3">
                   <strong>Win:</strong>
+
                   <p>{{city.win}}</p>
                 </div>
                 <div class="col-xs-3">
                   <strong>Lose:</strong>
+
                   <p>{{city.lose}}</p>
                 </div>
               </div>
@@ -54,7 +61,8 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Fight with enemies</h4>
               </div>
               <div class="modal-body">
@@ -78,7 +86,8 @@
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="CloseAllModals()"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="CloseAllModals()">
+                  <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Fight Result</h4>
               </div>
               <div class="modal-body">
@@ -94,74 +103,127 @@
           </div>
         </div>
 
-    <div>
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#buildings" aria-controls="buildings" role="tab" data-toggle="tab">Buildings ({{buildings.length}}/{{city.max_building_amount}})</a></li>
-        <li role="presentation"><a href="#army" aria-controls="profile" role="tab" data-toggle="tab">Fighter Ships ({{units.length}}/{{city.max_army_amount}})</a></li>
-        <!--<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>-->
-        <!--<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>-->
-      </ul>
+        <div>
 
+          <div class="row">
 
-      <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade in active" id="buildings">
-          <div id="factories">
-            <button type="button" class="btn btn-sm btn-default" ng-click="CreateBuilding(1)">Build Gem mining</button>
-            <button type="button" class="btn btn-sm btn-default" ng-click="CreateBuilding(2)">Build Starport</button>
+            <div class="container"><h2>Example 3 </h2></div>
+            <div id="exTab3" class="container">
+              <ul  class="nav nav-pills">
+                <li class="active">
+                  <a  href="#1b" data-toggle="tab">Overview</a>
+                </li>
+                <li><a href="#2b" data-toggle="tab">Using nav-pills</a>
+                </li>
+              </ul>
 
-            <p> Building list </p>
-            <div data-ng-repeat="building in buildings">
-              <div>
-                {{building}}
-                <button type="button" class="btn btn-sm btn-default" ng-click="Collect(building)">Collect</button>
-                <button type="button" class="btn btn-sm btn-default" ng-click="DeleteBuilding(building)">Delete</button>
+              <div class="tab-content clearfix">
+                <div class="tab-pane active" id="1b">
+                  <h3>Same as example 1 but we have now styled the tab's corner</h3>
+                </div>
+                <div class="tab-pane" id="2b">
+                  <h3>We use the class nav-pills instead of nav-tabs which automatically creates a background color for the tab</h3>
+                </div>
               </div>
             </div>
+
           </div>
 
-        </div>
-        <div role="tabpanel" class="tab-pane fade" id="army">
-          <div id="army">
-            <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(1)">Build Ship Type1 (gem-10,energy-10)</button>
-            <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(2)">Build Ship Type2 (gem-25,energy-20)</button>
-            <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(3)">Build Ship Type3 (gem-40,energy-50)</button>
-            <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(4)">Build Ship Type4 (gem-70,energy-30)</button>
-          </div>
 
-          <p> Fighter Ships list </p>
-          <div data-ng-repeat="unit in units">
-            <div>
-              {{unit}}
-              <button type="button" class="btn btn-sm btn-default" ng-click="DeleteUnit(unit)">Delete</button>
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#buildings" aria-controls="buildings" role="tab" data-toggle="tab">Buildings
+                ({{buildings.length}}/{{city.max_building_amount}})</a></li>
+            <li role="presentation"><a href="#army" aria-controls="profile" role="tab" data-toggle="tab">Fighter Ships
+              ({{units.length}}/{{city.max_army_amount}})</a></li>
+            <!--<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>-->
+            <!--<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>-->
+          </ul>
+
+
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="buildings">
+              <div id="factories">
+                <button type="button" class="btn btn-sm btn-default" ng-click="CreateBuilding(1)">Build Gem mining
+                </button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="CreateBuilding(2)">Build Starport
+                </button>
+
+                <p> Building list </p>
+
+                <div data-ng-repeat="building in buildings">
+                  <div>
+                    {{building}}
+                    <button type="button" class="btn btn-sm btn-default" ng-click="Collect(building)">Collect</button>
+                    <button type="button" class="btn btn-sm btn-default" ng-click="DeleteBuilding(building)">Delete</button>
+                  </div>
+                </div>
+              </div>
+
             </div>
+            <div role="tabpanel" class="tab-pane fade" id="army">
+              <div id="army">
+                <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(1)">Build Ship Type1
+                  (gem-10,energy-10)
+                </button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(2)">Build Ship Type2
+                  (gem-25,energy-20)
+                </button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(3)">Build Ship Type3
+                  (gem-40,energy-50)
+                </button>
+                <button type="button" class="btn btn-sm btn-default" ng-click="CreateUnit(4)">Build Ship Type4
+                  (gem-70,energy-30)
+                </button>
+              </div>
+
+              <p> Fighter Ships list </p>
+
+              <div data-ng-repeat="unit in units">
+                <div>
+                  {{unit}}
+                  <button type="button" class="btn btn-sm btn-default" ng-click="DeleteUnit(unit)">Delete</button>
+                </div>
+              </div>
+
+            </div>
+            <!--<div role="tabpanel" class="tab-pane fade" id="messages">message</div>-->
+            <!--<div role="tabpanel" class="tab-pane fade" id="settings">settings</div>-->
           </div>
-
         </div>
-        <!--<div role="tabpanel" class="tab-pane fade" id="messages">message</div>-->
-        <!--<div role="tabpanel" class="tab-pane fade" id="settings">settings</div>-->
+
+        <br/>
+        <br/>
+        <br/>
+
+
       </div>
-    </div>
 
-    <br/>
-    <br/>
-    <br/>
-
-
-    </div>
       <div class="col-xs-3 col-md-3">
         <div class="panel panel-danger">
           <div class="panel-heading">
-            <h3 class="panel-title">Fight History</h3>
+            <h3 class="panel-title">Battle History</h3>
           </div>
           <div class="panel-body">
 
-            m is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+            m is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
+            make a type specimen book. It has survived not only five centuries, but also the leap into electronic
+            typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+            sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum.
+            It is a long established fact that a reader will be distracted by the readable content of a page when
+            looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of
+            letters, as opposed to using 'Content here, content here', making it look like readable English. Many
+            desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a
+            search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved
+            over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
 
