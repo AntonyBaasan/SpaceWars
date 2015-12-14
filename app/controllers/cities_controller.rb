@@ -4,7 +4,7 @@ class CitiesController < ApplicationController
   # GET /cities
   # GET /cities.json
   def index
-    @cities = City.all
+    @cities = City.select(:id, :name, :locked, :stone, :wood, :win, :lose, :population)
     @city_hash = cookies[:city_hash]
   end
 
@@ -16,7 +16,15 @@ class CitiesController < ApplicationController
 
   # GET /cities/new
   def new
-    @city = City.new
+    if(@city.blank?)
+      @city = City.new
+    else
+      respond_to do |format|
+        format.html { redirect_to city_url(@city), notice: "" }
+        format.json { head :no_content }
+      end
+    end
+
   end
 
   # GET /cities/1/edit
@@ -84,41 +92,41 @@ class CitiesController < ApplicationController
     enemyAttack = @enemyCity.units.sum(:attack)
 
     if myAttack > enemyAttack
-      youWin = true
+      notice = "You won"
       @city.last_fight_date = Time.now
       # change stat
       @city.win = @city.win + 1
       @enemyCity.lose = @enemyCity.lose + 1
       # change buildings
-      damageCity @city
       damageCity @enemyCity
       # delete units
-      @city.units.delete_all
       @enemyCity.units.delete_all
       # add experience
-      @city.population = @city.population + 100
-      @enemyCity.population = @enemyCity.population + 100
+      @city.population = @city.population + rand(100..150)
+      @enemyCity.population = @enemyCity.population + rand(40..60)
     else
-      youWin = false
+      notice = "You lost"
       # change stat
       @city.lose = @city.lose + 1
       @enemyCity.win = @enemyCity.win + 1
       # change stat
       damageCity @city
-      damageCity @enemyCity
       # delete units
       @city.units.delete_all
-      @enemyCity.units.delete_all
       # add experience
-      @city.population = @city.population + 50
-      @enemyCity.population = @enemyCity.population + 50
+      @city.population = @city.population + rand(40..60)
+      @enemyCity.population = @enemyCity.population + rand(100..150)
     end
 
+    City.transaction do
+      if @city.save && @enemyCity.save
+        render json: {notice: notice}, status: :ok and return
+      else
+        render json: {notice: "Fight cancellad"}, status: :unprocessable_entity
+        raise ActiveRecord::Rollback
+      end
+    end
 
-    @city.save
-    @enemyCity.save
-
-    render json: {notice: "You won"}, status: :ok and return
   end
 
 
@@ -158,11 +166,11 @@ class CitiesController < ApplicationController
       enum.next.join
     end
 
-    # redirect to no citi pafe
+    # redirect to no city page
     def redirect_to_default_page_if_no_city(note)
-      if(!@city)
+      if(@city.blank?)
         respond_to do |format|
-          format.html { redirect_to cities_url, notice: note }
+          format.html { redirect_to new_city_url, notice: note }
           format.json { head :no_content }
         end
       end

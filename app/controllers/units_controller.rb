@@ -97,6 +97,7 @@ class UnitsController < ApplicationController
           render json: newUnit, status: :created and return
         else
           render json: {error: newUnit.errors.first}, status: :unprocessable_entity and return
+          raise ActiveRecord::Rollback
         end
       end
 

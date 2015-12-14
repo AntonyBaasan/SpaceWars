@@ -70,7 +70,7 @@ class BuildingsController < ApplicationController
         render json: {notice: notice, amount: @building.amount }, :status => :ok
       else # time is not yes
         left_minute =  Time.at((@building.last_collect + @building.collect_minute*60 - Time.now)).utc.strftime("%M:%S") #=> "00:00"
-        render json: {error: "Not yet generated! Have to wait:" + left_minute}, :status => 406
+        render json: {error: "Not yet generated! Have to wait " + left_minute}, :status => 406
       end
 
     end
