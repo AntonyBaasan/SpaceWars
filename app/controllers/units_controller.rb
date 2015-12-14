@@ -89,11 +89,17 @@ class UnitsController < ApplicationController
         render json: {error: "Not enough resources!"}, status: :unprocessable_entity and return
       end
 
-      if newUnit.save
-        render json: newUnit, status: :created, location: newUnit and return
-      else
-        render json: {error: newUnit.errors.first}, status: :unprocessable_entity and return
+      @city.stone = @city.stone - required_stone
+      @city.wood = @city.wood - required_wood
+
+      City.transaction do
+        if newUnit.save && @city.save
+          render json: newUnit, status: :created and return
+        else
+          render json: {error: newUnit.errors.first}, status: :unprocessable_entity and return
+        end
       end
+
     end
 
     render json: {error: "Unknown error"}, status: :unprocessable_entity and return

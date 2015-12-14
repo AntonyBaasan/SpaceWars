@@ -65,12 +65,61 @@ class CitiesController < ApplicationController
     render json: @cities, status: :ok
   end
 
-  # GET /cities/fight/:emeny_id
-  # def fight
-  #   @cities = City.select()
-  #   render json: {error: "Not enough resources!"}, status: :unprocessable_entity and return
-  #
-  # end
+  # GET /cities/fight/:eneny_id
+  def fight
+    if(@city.blank?)
+      render json: {error: "Can't find correct data!"}, status: :unprocessable_entity and return
+    elsif(@city.last_fight_date > 3.minutes.ago)
+      left_minute =  Time.at((@city.last_fight_date + 3*60 - Time.now)).utc.strftime("%M:%S") #=> "00:00"
+      render json: {error: "You are not "+left_minute+" left until full recovery!"}, status: :unprocessable_entity and return
+    end
+
+    @enemyCity = City.find(params[:enemy_id])
+    if @enemyCity.blank?
+      render json: {error: "Can't find current enemy!"}, status: :unprocessable_entity and return
+    end
+
+
+    myAttack,myDefence = @city.units.sum(:attack, :defence)
+    enemyAttack = @enemyCity.units.sum(:attack)
+
+    if myAttack > enemyAttack
+      youWin = true
+      @city.last_fight_date = Time.now
+      # change stat
+      @city.win = @city.win + 1
+      @enemyCity.lose = @enemyCity.lose + 1
+      # change buildings
+      damageCity @city
+      damageCity @enemyCity
+      # delete units
+      @city.units.delete_all
+      @enemyCity.units.delete_all
+      # add experience
+      @city.population = @city.population + 100
+      @enemyCity.population = @enemyCity.population + 100
+    else
+      youWin = false
+      # change stat
+      @city.lose = @city.lose + 1
+      @enemyCity.win = @enemyCity.win + 1
+      # change stat
+      damageCity @city
+      damageCity @enemyCity
+      # delete units
+      @city.units.delete_all
+      @enemyCity.units.delete_all
+      # add experience
+      @city.population = @city.population + 50
+      @enemyCity.population = @enemyCity.population + 50
+    end
+
+
+    @city.save
+    @enemyCity.save
+
+    render json: {notice: "You won"}, status: :ok and return
+  end
 
 
   # DELETE /cities/1
@@ -119,4 +168,8 @@ class CitiesController < ApplicationController
       end
     end
 
+    def damageCity city
+      buildings = city.buildings.offset(3)
+      buildings.each { |b| b.destroy }
+    end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151213072236) do
+ActiveRecord::Schema.define(version: 20151213093530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,14 +34,15 @@ ActiveRecord::Schema.define(version: 20151213072236) do
     t.integer  "stone",               default: 0
     t.integer  "wood",                default: 0
     t.integer  "population"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.integer  "win",                 default: 0
     t.integer  "lose",                default: 0
     t.string   "city_hash"
     t.integer  "max_building_amount", default: 20
     t.integer  "max_army_amount",     default: 20
     t.integer  "city_type"
+    t.datetime "last_fight_date",     default: '2015-12-13 09:37:24'
   end
 
   add_index "cities", ["city_hash"], name: "index_cities_on_city_hash", using: :btree

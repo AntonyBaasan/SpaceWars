@@ -5,16 +5,17 @@
 var serviceCity = cityModule.service('serviceCity', ['$http', function($http) {
     var urlBase = '/cities';
 
+    this.getMyCityInfo = function () {
+        return $http.get(urlBase+'/1.json');//put 1 just to redirect to SHOW method
+    };
+
     this.getFighterCities = function () {
         return $http.get(urlBase+'/fighterslist');
     };
 
-    this.createUnit = function (building) {
-        return $http.post(urlBase, building);
+    this.fightWithCity = function (cityId) {
+        return $http.get(urlBase+'/fight/'+cityId);
     };
 
-    this.deleteUnit = function (id) {
-        return $http.delete(urlBase + '/' + id);
-    };
 
 }]);

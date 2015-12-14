@@ -1,4 +1,5 @@
-<div ng-app="cityModule" ng-cloak ng-init="city.stone=<%= @city.stone %>;city.wood=<%= @city.wood %>;city.max_building_amount=<%= @city.max_building_amount %>;city.max_army_amount=<%= @city.max_building_amount %>">
+<div ng-app="cityModule" ng-cloak
+     ng-init="city.stone=<%= @city.stone %>;city.wood=<%= @city.wood %>;city.max_building_amount=<%= @city.max_building_amount %>;city.max_army_amount=<%= @city.max_army_amount%>;city.lose=<%= @city.lose %>;city.win=<%= @city.win %>;city.population=<%= @city.population %>">
 
   <div ng-controller="cityController" >
     <p id="notice"><%= notice %></p>
@@ -28,9 +29,8 @@
 
     <p>
       <strong>Population:</strong>
-      <%= @city.population %>
+        <p>{{city.population}}</p>
     </p>
-
 
     <!-- Fight button -->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#fightModal" ng-click="GetAllFighterCities()">
@@ -48,7 +48,7 @@
             <div data-ng-repeat="city in fighterCities">
               <div>
                 {{city}}
-                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#fightResultModal">Attack</button>
+                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#fightResultModal" ng-click="FightWithCity(city)">Attack</button>
               </div>
             </div>
           </div>
@@ -66,11 +66,11 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="CloseAllModals()"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Fight with enemies</h4>
+            <h4 class="modal-title" id="myModalLabel">Fight Result</h4>
           </div>
           <div class="modal-body">
             <div id="fight_result">
-                Result
+                Result: {{fightResult}}
             </div>
           </div>
           <div class="modal-footer">

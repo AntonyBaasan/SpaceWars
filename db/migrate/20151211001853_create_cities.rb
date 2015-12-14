@@ -5,7 +5,7 @@ class CreateCities < ActiveRecord::Migration
       t.boolean :locked
       t.integer :stone, default: 50
       t.integer :wood, default: 50
-      t.integer :population
+      t.integer :population, default: 0
 
       t.timestamps null: false
     end

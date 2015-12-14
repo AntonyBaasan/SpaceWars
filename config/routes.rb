@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   get 'cities/fighterslist' => 'cities#fighters_list'
+  get 'cities/fight/:enemy_id' => 'cities#fight'
+  # GET /cities/fight/:eneny_id
   resources :cities
 
   get 'buildings' => 'buildings#index'

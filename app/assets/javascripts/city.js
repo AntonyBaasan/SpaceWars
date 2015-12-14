@@ -7,10 +7,34 @@ var cityModule = angular.module("cityModule", ['ngResource']);
 cityModule.controller('cityController', ["$scope", '$window','serviceBuilding', '$http', 'serviceUnit', 'serviceCity', function($scope, $window, serviceBuilding, $http, serviceUnit, serviceCity) {
 
     $scope.name = "antony";
-    serviceBuilding.getAllBuildings().then(function(response) {
-        console.log(response);
-        $scope.buildings = response.data;
-    });
+
+
+    $scope.UpdateBuildingAndUnitList = function(){
+        //Update buildings
+        serviceBuilding.getAllBuildings().then(function(response) {
+            console.log(response);
+            $scope.buildings = response.data;
+        });
+
+        //Update Units
+        serviceUnit.getAllUnits().then(function(response) {
+            console.log(response);
+            $scope.units = response.data;
+        });
+    };
+
+    $scope.UpdateMyCityInfo = function(){
+        serviceCity.getMyCityInfo().then(function(response) {
+            console.log(response);
+            $scope.city.stone = response.data.stone;
+            $scope.city.wood = response.data.wood;
+
+            $scope.city.win = response.data.win;
+            $scope.city.lose = response.data.lose;
+            $scope.city.population = response.data.population;
+
+        });
+    };
 
     //create building button click
     $scope.CreateBuilding = function(typeId){
@@ -23,6 +47,7 @@ cityModule.controller('cityController', ["$scope", '$window','serviceBuilding', 
         serviceBuilding.createBuilding(building).then(function(response) {
             $scope.buildings.push(response.data);
             toastr.success('Building Created');
+            $scope.UpdateMyCityInfo();
         },function(response){
             console.log("createBuilding: "+response.data.error);
             toastr.error('Can\'t create: '+response.data.error)
@@ -65,10 +90,6 @@ cityModule.controller('cityController', ["$scope", '$window','serviceBuilding', 
         });
     };
 
-    serviceUnit.getAllUnits().then(function(response) {
-        console.log(response);
-        $scope.units = response.data;
-    });
 
     //create unit
     $scope.CreateUnit = function(typeId){
@@ -81,6 +102,8 @@ cityModule.controller('cityController', ["$scope", '$window','serviceBuilding', 
         serviceUnit.createUnit(building).then(function(response) {
             $scope.units.push(response.data);
             toastr.success('Unit Created');
+            $scope.UpdateMyCityInfo();
+
         },function(response){
             console.log("createUnit: "+response.data.error);
             toastr.error('Can\'t create: '+response.data.error)
@@ -101,21 +124,38 @@ cityModule.controller('cityController', ["$scope", '$window','serviceBuilding', 
         });
     };
 
-
+    //
     $scope.GetAllFighterCities = function(){
         serviceCity.getFighterCities().then(function(response) {
 
             $scope.fighterCities = response.data;
 
         },function(response){
+            $scope.fighterCities = null;
             toastr.error('Can\'t find any enemies');
         });
     };
 
+    $scope.FightWithCity = function(city){
+        serviceCity.fightWithCity(city.id).then(function(response) {
+
+            $scope.fightResult = response.data;
+
+            $scope.UpdateMyCityInfo();
+            $scope.UpdateBuildingAndUnitList();
+
+        },function(response){
+            if(response.data.error)
+                $scope.fightResult = response.data.error;
+        });
+    };
 
     $scope.CloseAllModals = function(){
         $('.modal').modal('hide');
     };
+
+
+    $scope.UpdateBuildingAndUnitList();
 
 
 }]);

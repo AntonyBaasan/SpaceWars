@@ -25,32 +25,7 @@ class BuildingsController < ApplicationController
       render json: {error: "No space for more building"}, status: :unprocessable_entity and return
     end
 
-    if (params[:building_type] == 1)
-      if (@city.stone.to_i > 10 && @city.wood.to_i > 10)
-        @building = Building.new(collect_minute: 1, last_collect: DateTime.now.to_date, amount:10, resource_type: '1', city: @city)
-          if @building.save
-            render json: @building, status: :created, location: @building and return
-
-          else
-            render json: {error: @building.errors.first}, status: :unprocessable_entity and return
-          end
-      else
-        render json: {error: "Not enough resources!"}, status: :unprocessable_entity and return
-      end
-    end
-
-    if (params[:building_type] == 2)
-      if (@city.stone.to_i > -1 && @city.wood.to_i > -1)
-        @building = Building.new(collect_minute: 2, last_collect: Time.now, amount:10, resource_type: '2', city: @city)
-          if @building.save
-            render json: @building, status: :created, location: @building and return
-          else
-            render json: {error: @building.errors.first}, status: :unprocessable_entity and return
-          end
-      else
-        render json: {error: "Not enough resources!"}, status: :unprocessable_entity and return
-      end
-    end
+    create_building_by_type params[:building_type], @city
 
   end
 
@@ -84,7 +59,6 @@ class BuildingsController < ApplicationController
 
 
         if(@building.resource_type=='1')
-
           @city.stone = @city.stone + @building.amount
           notice = "Collected "+@building.amount.to_s+" stone"
         elsif(@building.resource_type=='2')
@@ -137,4 +111,35 @@ class BuildingsController < ApplicationController
       minutes = seconds_diff / 60
 
     end
+
+    #
+    def create_building_by_type typeId, city
+      # if (params[:building_type] == 2)
+      # end
+
+      if (typeId == 1)
+        required_stone = 10
+        required_wood = 10
+        newBuilding = Building.new(collect_minute: 2, last_collect: Time.now, amount:10, resource_type: '1', city: city)
+      elsif (typeId == 2)
+        required_stone = 20
+        required_wood = 20
+        newBuilding = Building.new(collect_minute: 3, last_collect: Time.now, amount:10, resource_type: '2', city: city)
+      end
+
+      unless (city.stone.to_i > required_stone && @city.wood.to_i > required_wood)
+        render json: {error: "Not enough resources!"}, status: :unprocessable_entity and return
+      end
+
+      @city.stone = @city.stone - required_stone
+      @city.wood = @city.wood - required_wood
+
+      if newBuilding.save
+        render json: newBuilding, status: :created and return
+      else
+        render json: {error: newBuilding.errors.first}, status: :unprocessable_entity and return
+      end
+
+    end
+
 end
