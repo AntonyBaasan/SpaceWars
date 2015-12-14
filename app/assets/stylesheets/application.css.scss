@@ -17,3 +17,27 @@
 
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets";
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+
+
+body {
+  background: url(milky_way_stars_space.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin-top: 60px;
+}
+
+.panel-transparent {
+  background: none;
+}
+
+.panel-transparent .panel-heading{
+  background: rgba(122, 130, 136, 0.7)!important;
+  color: white;
+}
+
+.panel-transparent .panel-body{
+  background: rgba(46, 51, 56, 0.7)!important;
+  color: white;
+}

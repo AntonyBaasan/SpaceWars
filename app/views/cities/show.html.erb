@@ -2,92 +2,97 @@
      ng-init="city.stone=<%= @city.stone %>;city.wood=<%= @city.wood %>;city.max_building_amount=<%= @city.max_building_amount %>;city.max_army_amount=<%= @city.max_army_amount%>;city.lose=<%= @city.lose %>;city.win=<%= @city.win %>;city.population=<%= @city.population %>">
 
   <div ng-controller="cityController" >
-    <p id="notice"><%= notice %></p>
+    <div class="row">
+      <div class="col-xs-9 col-md-9">
+        <div class="panel panel-default panel-transparent">
+          <div class="panel-body">
 
-    <%= link_to 'Edit', edit_city_path(@city) %> |
-    <%= link_to 'Back', cities_path %>
-    <p>
-      <strong>Ship Name:</strong>
-      <p><%= @city.name %></p>
-    </p>
-
-    <p>
-      <strong>Locked:</strong>
-      <%= @city.locked %>
-    </p>
-
-    <p>
-        <strong>Stone:</strong>
-        <p>{{city.stone}}</p>
-
-    </p>
-
-    <p>
-        <strong>Wood:</strong>
-        <p>{{city.wood}}</p>
-    </p>
-
-    <p>
-      <strong>Population:</strong>
-        <p>{{city.population}}</p>
-    </p>
-    <p>
-      <strong>Win:</strong>
-    <p>{{city.win}}</p>
-    </p>
-    <p>
-      <strong>Lose:</strong>
-    <p>{{city.lose}}</p>
-    </p>
-
-    <!-- Fight button -->
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#fightModal" ng-click="GetAllFighterCities()">
-      Fight
-    </button>
-    <!-- Modal Fighter List-->
-    <div class="modal fade" id="fightModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Fight with enemies</h4>
-          </div>
-          <div class="modal-body">
-            <div data-ng-repeat="city in fighterCities">
-              <div>
-                {{city}}
-                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#fightResultModal" ng-click="FightWithCity(city)">Attack</button>
+            <p id="notice"><%= notice %></p>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-xs-3">
+                  <strong>Ship Name:</strong>
+                  <p><%= @city.name %>(<%= link_to 'change', edit_city_path(@city) %>)</p>
+                </div>
+                <div class="col-xs-3">
+                  <strong>XP:</strong>
+                  <p>{{city.population}}</p>
+                </div>
+                <div class="col-xs-3">
+                  <strong>Stone:</strong>
+                  <p>{{city.stone}}</p>
+                </div>
+                <div class="col-xs-3">
+                  <strong>Wood:</strong>
+                  <p>{{city.wood}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-3">
+                  <!-- Fight button -->
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#fightModal" ng-click="GetAllFighterCities()">
+                    Fight
+                  </button>
+                </div>
+                <div class="col-xs-3">
+                </div>
+                <div class="col-xs-3">
+                  <strong>Win:</strong>
+                  <p>{{city.win}}</p>
+                </div>
+                <div class="col-xs-3">
+                  <strong>Lose:</strong>
+                  <p>{{city.lose}}</p>
+                </div>
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-          </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Modal Fighter Result-->
-    <div class="modal fade" id="fightResultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="CloseAllModals()"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Fight Result</h4>
-          </div>
-          <div class="modal-body">
-            <div id="fight_result">
-                Result: {{fightResult}}
+        <!-- Modal Fighter List-->
+        <div class="modal fade" id="fightModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Fight with enemies</h4>
+              </div>
+              <div class="modal-body">
+                <div data-ng-repeat="city in fighterCities">
+                  <div>
+                    {{city}}
+                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#fightResultModal" ng-click="FightWithCity(city)">Attack</button>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+              </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="CloseAllModals()">Close</button>
-            <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+        </div>
+
+        <!-- Modal Fighter Result-->
+        <div class="modal fade" id="fightResultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="CloseAllModals()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Fight Result</h4>
+              </div>
+              <div class="modal-body">
+                <div id="fight_result">
+                  Result: {{fightResult}}
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="CloseAllModals()">Close</button>
+                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
 
     <div>
       <!-- Nav tabs -->
@@ -143,7 +148,20 @@
     <br/>
 
 
+    </div>
+      <div class="col-xs-3 col-md-3">
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title">Fight History</h3>
+          </div>
+          <div class="panel-body">
 
+            m is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
