@@ -8,8 +8,6 @@
   height: 400px;
 }
 
-
-
 #exTab1 .tab-content {
   color : white;
   background-color: #428bca;
@@ -42,4 +40,15 @@
   color : white;
   background-color: #428bca;
   padding : 5px 15px;
+}
+
+
+#myShip {
+  border-radius: 4px 4px 4px 4px ;
+  border: solid #d9edf7 2px;
+  background-color: #d9edf7;
+  width: 170px;
+  height: 170px;
+  background: url(image_path('/ship_images/StarDefender.jpg')) no-repeat center center fixed;
+
 }
