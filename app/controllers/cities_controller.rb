@@ -68,7 +68,7 @@ class CitiesController < ApplicationController
   # GET /cities/fighterslist/
   def fighters_list
     # @cities = City.select(:id,:name).sample(20)
-    @cities = City.select(:id,:name).where().not(id: @city.id).limit(20).order("RANDOM()")
+    @cities = City.select(:id,:name, :population).where().not(id: @city.id).limit(20).order("RANDOM()")
     # @cities(@city.id)
     render json: @cities, status: :ok
   end
@@ -79,7 +79,7 @@ class CitiesController < ApplicationController
       render json: {error: "Can't find correct data!"}, status: :unprocessable_entity and return
     elsif(@city.last_fight_date > 3.minutes.ago)
       left_minute =  Time.at((@city.last_fight_date + 3*60 - Time.now)).utc.strftime("%M:%S") #=> "00:00"
-      render json: {error: "You are not "+left_minute+" left until full recovery!"}, status: :unprocessable_entity and return
+      render json: {error: "You are not recovered from previous fight. "+left_minute+" left until recovery!"}, status: :unprocessable_entity and return
     end
 
     @enemyCity = City.find(params[:enemy_id])
@@ -90,6 +90,10 @@ class CitiesController < ApplicationController
     myAttack,myDefence = @city.units.sum(:attack, :defence)
     enemyAttack = @enemyCity.units.sum(:attack)
 
+    winPopulationChange = rand(100..150)
+    losePopulationChange = rand(40..60)
+    populationChange = 0
+
     if myAttack > enemyAttack
       notice = "You won"
       @city.last_fight_date = Time.now
@@ -99,10 +103,11 @@ class CitiesController < ApplicationController
       # change buildings
       damageCity @enemyCity
       # delete units
-      @enemyCity.units.delete_all
+      #@enemyCity.units.delete_all #lost player will not know about his lost. Have to add later when player can see history
       # add experience
-      @city.population = @city.population + rand(100..150)
-      @enemyCity.population = @enemyCity.population + rand(40..60)
+      @city.population = @city.population + winPopulationChange
+      @enemyCity.population = @enemyCity.population + losePopulationChange
+      populationChange = winPopulationChange
     else
       notice = "You lost"
       # change stat
@@ -113,13 +118,14 @@ class CitiesController < ApplicationController
       # delete units
       @city.units.delete_all
       # add experience
-      @city.population = @city.population + rand(40..60)
-      @enemyCity.population = @enemyCity.population + rand(100..150)
+      @city.population = @city.population + losePopulationChange
+      @enemyCity.population = @enemyCity.population + winPopulationChange
+      populationChange = losePopulationChange
     end
 
     City.transaction do
       if @city.save! && @enemyCity.save!
-        render json: {notice: notice}, status: :ok and return
+        render json: {notice: notice, population: populationChange}, status: :ok and return
       else
         render json: {error: "Fight cancellad"}, status: :unprocessable_entity
         raise ActiveRecord::Rollback

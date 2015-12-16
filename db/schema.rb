@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214220859) do
+ActiveRecord::Schema.define(version: 20151216050142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,20 +29,20 @@ ActiveRecord::Schema.define(version: 20151214220859) do
   add_index "buildings", ["city_id"], name: "index_buildings_on_city_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",                limit: 25
     t.boolean  "locked"
-    t.integer  "stone",               default: 50
-    t.integer  "wood",                default: 50
-    t.integer  "population",          default: 0
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
-    t.integer  "win",                 default: 0
-    t.integer  "lose",                default: 0
+    t.integer  "stone",                          default: 50
+    t.integer  "wood",                           default: 50
+    t.integer  "population",                     default: 0
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+    t.integer  "win",                            default: 0
+    t.integer  "lose",                           default: 0
     t.string   "city_hash"
-    t.integer  "max_building_amount", default: 20
-    t.integer  "max_army_amount",     default: 20
+    t.integer  "max_building_amount",            default: 20
+    t.integer  "max_army_amount",                default: 20
     t.integer  "city_type"
-    t.datetime "last_fight_date",     default: '2015-12-15 15:33:52'
+    t.datetime "last_fight_date",                default: '2015-12-13 09:37:24'
   end
 
   add_index "cities", ["city_hash"], name: "index_cities_on_city_hash", using: :btree

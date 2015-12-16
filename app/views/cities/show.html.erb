@@ -67,19 +67,27 @@
         <!-- Modal Fighter List-->
         <div class="modal fade" id="fightModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
+            <div class="modal-content  panel-danger">
+              <div class="modal-header panel-danger">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Fight with enemies</h4>
               </div>
               <div class="modal-body">
-                <div data-ng-repeat="city in fighterCities">
-                  <div>
-                    {{city}}
-                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#fightResultModal" ng-click="FightWithCity(city)">Attack</button>
+
+                <ul class="list-group">
+
+                  <div data-ng-repeat="cityObj in fighterCities">
+                    <li class="list-group-item">
+
+                        <span class="btn-group">
+                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#fightResultModal" ng-click="FightWithCity(cityObj)">Attack</button>
+                      </span>
+                      {{cityObj.name}} (XP:{{cityObj.population}})
+                    </li>
                   </div>
-                </div>
+                </ul>
+
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -100,7 +108,15 @@
               </div>
               <div class="modal-body">
                 <div id="fight_result">
-                  Result: {{fightResult}}
+                  <div id="fight_result_notice" class="text-center" ng-hide="fightResult.error">
+                    {{fightResult.notice}}
+                  </div>
+                  <div id="fight_result_population" class="text-center" ng-hide="fightResult.error">
+                    Gained XP: {{fightResult.population}}
+                  </div>
+                  <div id="fight_result_population" class="text-center" ng-show="fightResult.error">
+                    {{fightResult.error}}
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -144,6 +160,7 @@
                     <div id="building_item_{{building.resource_type}}">
                       <!--{{building}}-->
                       <p ng-show="building.resource_type==1">Mineral Sucker</p>
+
                       <p ng-show="building.resource_type==2">Energy Generator</p>
 
                       <button type="button" class="btn btn-sm btn-success" ng-click="Collect(building)">Collect</button>
@@ -161,10 +178,26 @@
 
                   <hr/>
 
-                  <div data-ng-repeat="unit in units">
+                  <div data-ng-repeat="unit in units" style="float: left;">
                     <div>
-                      {{unit}}
-                      <button type="button" class="btn btn-sm btn-default" ng-click="DeleteUnit(unit)">Delete</button>
+                      <!--{{unit}}-->
+
+                      <div id="unit_item_{{unit.unit_type}}">
+                        <div>
+                          <p ng-show="unit.unit_type==1">Gunbolt-2</p>
+
+                          <p ng-show="unit.unit_type==2">TIE Fire</p>
+
+                          <p ng-show="unit.unit_type==3">X-TIE Fighter</p>
+
+                          <p ng-show="unit.unit_type==4">T65XJ5</p>
+                        </div>
+                        <div>Attack: {{unit.attack}}</div>
+                        <div>Defense: {{unit.defence}}</div>
+                      </div>
+                      <div class="unit-delete-button">
+                        <button type="button" class="btn btn-lg btn-danger" ng-click="DeleteUnit(unit)">Destroy</button>
+                      </div>
                     </div>
                   </div>
 
@@ -188,8 +221,8 @@
                 <div class="row">
                   <div class="col-xs-6 col-md-6">
                     <div>
-                    <p>Mineral Sucker</p>
-                    <%= image_tag("Energy_Generator.jpg") %>
+                      <p>Mineral Sucker</p>
+                      <%= image_tag("Energy_Generator.jpg") %>
                     </div>
                     <button type="button" class="btn btn-lg btn-success" ng-click="CreateBuilding(1)">
                       Buy (-20,-20)
@@ -255,7 +288,7 @@
                       <p>T65XJ5</p>
                       <%= image_tag("T65XJ5_Stealth_small.jpg") %>
                     </div>
-                    <button type="button" class="btn btn-sm btn-success" ng-click="CreateUnit(3)">Buy (-1000,-800)
+                    <button type="button" class="btn btn-sm btn-success" ng-click="CreateUnit(4)">Buy (-1000,-800)
                     </button>
                   </div>
 

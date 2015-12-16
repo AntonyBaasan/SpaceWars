@@ -17,6 +17,7 @@
 
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets";
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 
 
 body {
@@ -26,6 +27,8 @@ body {
   -o-background-size: cover;
   background-size: cover;
   margin-top: 60px;
+  font-family: "Droid Sans", arial, verdana, sans-serif;
+
 }
 
 .panel-transparent {

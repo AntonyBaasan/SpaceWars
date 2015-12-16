@@ -146,7 +146,8 @@ cityModule.controller('cityController', ["$scope", '$window','serviceBuilding', 
 
         },function(response){
             if(response.data.error)
-                $scope.fightResult = response.data.error;
+                $scope.fightResult = response.data;
+
         });
     };
 
