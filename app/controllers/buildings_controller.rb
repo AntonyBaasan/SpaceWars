@@ -20,7 +20,7 @@ class BuildingsController < ApplicationController
     @city = City.find_by(city_hash: hash)
 
     if @city.blank?
-      render json: {error: "Can't find the City"}, status: :unprocessable_entity and return
+      render json: {error: "Can't find the Ship"}, status: :unprocessable_entity and return
     elsif (@city.buildings.count >= @city.max_building_amount)
       render json: {error: "No space for more building"}, status: :unprocessable_entity and return
     end
@@ -60,10 +60,10 @@ class BuildingsController < ApplicationController
 
         if(@building.resource_type=='1')
           @city.stone = @city.stone + @building.amount
-          notice = "Collected "+@building.amount.to_s+" stone"
+          notice = "Collected "+@building.amount.to_s+" minerals"
         elsif(@building.resource_type=='2')
           @city.wood = @city.wood + @building.amount
-          notice = "Collected "+@building.amount.to_s+" wood"
+          notice = "Collected "+@building.amount.to_s+" energy"
         end
         @city.save
 
@@ -120,11 +120,11 @@ class BuildingsController < ApplicationController
       if (typeId == 1)
         required_stone = 20
         required_wood = 20
-        newBuilding = Building.new(collect_minute: 1, last_collect: Time.now, amount:10, resource_type: '1', city: city)
+        newBuilding = Building.new(collect_minute: 1, last_collect: Time.now, amount:40, resource_type: '1', city: city)
       elsif (typeId == 2)
         required_stone = 20
         required_wood = 20
-        newBuilding = Building.new(collect_minute: 1, last_collect: Time.now, amount:10, resource_type: '2', city: city)
+        newBuilding = Building.new(collect_minute: 1, last_collect: Time.now, amount:40, resource_type: '2', city: city)
       end
 
       if (city.stone.to_i < required_stone || @city.wood.to_i < required_wood)

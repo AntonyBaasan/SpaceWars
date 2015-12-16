@@ -19,7 +19,7 @@ class UnitsController < ApplicationController
     @city = City.find_by(city_hash: hash)
 
     if @city.blank?
-      render json: {error: "Can't find the City"}, status: :unprocessable_entity and return
+      render json: {error: "Can't find your ship"}, status: :unprocessable_entity and return
     elsif (@city.units.count >= @city.max_army_amount)
       render json: {error: "Unit amount limit exceeded"}, status: :unprocessable_entity and return
     end

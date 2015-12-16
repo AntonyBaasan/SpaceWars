@@ -11,7 +11,7 @@ class CitiesController < ApplicationController
   # GET /cities/1
   # GET /cities/1.json
   def show
-    redirect_to_default_page_if_no_city("First create the city")
+    redirect_to_default_page_if_no_city("First create the ship")
   end
 
   # GET /cities/new
@@ -29,7 +29,7 @@ class CitiesController < ApplicationController
 
   # GET /cities/1/edit
   def edit
-    redirect_to_default_page_if_no_city ("Can't find city")
+    redirect_to_default_page_if_no_city ("Can't find your ship")
   end
 
   # POST /cities
