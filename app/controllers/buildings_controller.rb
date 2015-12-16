@@ -120,11 +120,11 @@ class BuildingsController < ApplicationController
       if (typeId == 1)
         required_stone = 20
         required_wood = 20
-        newBuilding = Building.new(collect_minute: 2, last_collect: Time.now, amount:10, resource_type: '1', city: city)
+        newBuilding = Building.new(collect_minute: 1, last_collect: Time.now, amount:10, resource_type: '1', city: city)
       elsif (typeId == 2)
         required_stone = 20
         required_wood = 20
-        newBuilding = Building.new(collect_minute: 3, last_collect: Time.now, amount:10, resource_type: '2', city: city)
+        newBuilding = Building.new(collect_minute: 1, last_collect: Time.now, amount:10, resource_type: '2', city: city)
       end
 
       if (city.stone.to_i < required_stone || @city.wood.to_i < required_wood)
