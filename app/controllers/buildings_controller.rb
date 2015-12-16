@@ -118,8 +118,8 @@ class BuildingsController < ApplicationController
       # end
 
       if (typeId == 1)
-        required_stone = 10
-        required_wood = 10
+        required_stone = 20
+        required_wood = 20
         newBuilding = Building.new(collect_minute: 2, last_collect: Time.now, amount:10, resource_type: '1', city: city)
       elsif (typeId == 2)
         required_stone = 20
@@ -127,18 +127,22 @@ class BuildingsController < ApplicationController
         newBuilding = Building.new(collect_minute: 3, last_collect: Time.now, amount:10, resource_type: '2', city: city)
       end
 
-      unless (city.stone.to_i > required_stone && @city.wood.to_i > required_wood)
+      if (city.stone.to_i < required_stone || @city.wood.to_i < required_wood)
         render json: {error: "Not enough resources!"}, status: :unprocessable_entity and return
       end
 
       @city.stone = @city.stone - required_stone
       @city.wood = @city.wood - required_wood
 
-      if newBuilding.save
-        render json: newBuilding, status: :created and return
-      else
-        render json: {error: newBuilding.errors.first}, status: :unprocessable_entity and return
+      City.transaction do
+        if newBuilding.save && @city.save
+          render json: newBuilding, status: :created and return
+        else
+          render json: {error: newBuilding.errors.first}, status: :unprocessable_entity and return
+          raise ActiveRecord::Rollback
+        end
       end
+
 
     end
 

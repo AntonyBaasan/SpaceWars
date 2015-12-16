@@ -4,7 +4,7 @@ class CitiesController < ApplicationController
   # GET /cities
   # GET /cities.json
   def index
-    @cities = City.select(:id, :name, :locked, :stone, :wood, :win, :lose, :population)
+    @cities = City.select(:id, :name, :locked, :stone, :wood, :win, :lose, :population).order(population: :desc).limit(30)
     @city_hash = cookies[:city_hash]
   end
 

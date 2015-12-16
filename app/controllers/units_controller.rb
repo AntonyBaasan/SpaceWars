@@ -71,37 +71,35 @@ class UnitsController < ApplicationController
     elsif (typeId == 2)
       required_stone = 150
       required_wood = 150
-      newUnit = Unit.new(name: "type2", unit_type: typeId, attack:10, defence: 10, city: city)
+      newUnit = Unit.new(name: "type2", unit_type: typeId, attack:20, defence: 20, city: city)
     elsif (typeId == 3)
       required_stone = 300
       required_wood = 500
-      newUnit = Unit.new(name: "type3", unit_type: typeId, attack:10, defence: 10, city: city)
+      newUnit = Unit.new(name: "type3", unit_type: typeId, attack:50, defence: 150, city: city)
     elsif (typeId == 4)
       required_stone = 1000
       required_wood = 800
-      newUnit = Unit.new(name: "type4", unit_type: typeId, attack:10, defence: 10, city: city)
+      newUnit = Unit.new(name: "type4", unit_type: typeId, attack:300, defence: 200, city: city)
     end
 
     if newUnit.blank?
       render json: {error: "Unknown unit type!"}, status: :unprocessable_entity and return
-    else
-      unless (@city.stone.to_i > required_stone && @city.wood.to_i > required_wood)
+    elsif (@city.stone.to_i < required_stone || @city.wood.to_i < required_wood)
         render json: {error: "Not enough resources!"}, status: :unprocessable_entity and return
-      end
-
-      @city.stone = @city.stone - required_stone
-      @city.wood = @city.wood - required_wood
-
-      City.transaction do
-        if newUnit.save && @city.save
-          render json: newUnit, status: :created and return
-        else
-          render json: {error: newUnit.errors.first}, status: :unprocessable_entity and return
-          raise ActiveRecord::Rollback
-        end
-      end
-
     end
+
+    @city.stone = @city.stone - required_stone
+    @city.wood = @city.wood - required_wood
+
+    City.transaction do
+      if newUnit.save && @city.save
+        render json: newUnit, status: :created and return
+      else
+        render json: {error: newUnit.errors.first}, status: :unprocessable_entity and return
+        raise ActiveRecord::Rollback
+      end
+    end
+
 
     render json: {error: "Unknown error"}, status: :unprocessable_entity and return
 

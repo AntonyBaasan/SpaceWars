@@ -1,36 +1,42 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Leaderboard</h1>
-<p>@city_hash: <%= @city_hash %></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Stone</th>
-      <th>Wood</th>
-      <th>XP</th>
-      <th>Win</th>
-      <th>Lose</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @cities.each do |city| %>
-      <tr>
-        <td><%= city.name %></td>
-        <td><%= city.stone %></td>
-        <td><%= city.wood %></td>
-        <td><%= city.population %></td>
-        <td><%= city.win %></td>
-        <td><%= city.lose%></td>
-        <td><%= link_to 'Show', city %></td>
-        <td><%= link_to 'Edit', edit_city_path(city) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-offset-2 col-md-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading text-center">
+        <h1>Leaderboard (Best <%= @cities.count %>)</h1>
+      </div>
+      <div class="panel-body">
+        <table class="table table-condensed table-striped">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>XP</th>
+            <th>Win</th>
+            <th>Lose</th>
+            <th>Minerals</th>
+            <th>Energy</th>
+          </tr>
+          </thead>
 
-<br>
+          <tbody>
+          <% @cities.each_with_index do |city,index| %>
+              <tr>
+                <td><%= index+1 %>.</td>
+                <td><%= city.name %></td>
+                <td><%= city.population %></td>
+                <td><%= city.win %></td>
+                <td><%= city.lose%></td>
+                <td><%= city.stone %></td>
+                <td><%= city.wood %></td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
 
-<%= link_to 'New City', new_city_path %>
+      </div>
+    </div>
+  </div>
+</div>
