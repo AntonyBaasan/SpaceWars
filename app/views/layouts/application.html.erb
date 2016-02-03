@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SpaceWars</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-71462418-1', 'auto');
+      ga('send', 'pageview');
+
+  </script>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <!-- The mobile navbar-toggle button can be safely removed since you do not need it in a non-responsive implementation -->
+      <a class="navbar-brand" href="/cities/1">Space Wars</a>
+    </div>
+    <!-- Note that the .navbar-collapse and .collapse classes have been removed from the #navbar -->
+    <div id="navbar">
+      <ul class="nav navbar-nav navbar-left">
+        <li><a href="/intro">Instruction</a></li>
+        <li><a href="/cities/1">My Ship</a></li>
+        <li><a href="/cities">Leaderboard</a></li>
+        <li><a href="http://ludumdare.com/compo/ludum-dare-34/?action=preview&uid=20288">LudumDare34</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+
+<div class="container-fluid">
+  <%= yield %>
+</div>
+
+</body>
+</html>

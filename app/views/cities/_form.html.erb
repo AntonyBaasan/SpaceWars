@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-offset-2 col-md-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading text-center">
+        <h1>Give a name to your Star Destroyer</h1>
+      </div>
+      <div class="panel-body">
+        <%= form_for(@city) do |f| %>
+            <% if @city.errors.any? %>
+                <div id="error_explanation">
+                  <!--<h2><%= pluralize(@city.errors.count, "error") %> prohibited this ship from being saved:</h2>-->
+
+                  <ul>
+                    <% @city.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+            <% end %>
+
+            <div class="form-group">
+              <div class="field">
+                <%= f.text_field :name, class: "input-lg inputlg col-xs-12 col-md-12" %>
+              </div>
+            </div>
+            
+
+            <br/> <br/> <br/>
+            <div class="form-group">
+              <div class="field">
+                <%= f.submit "Save", :class => 'btn btn-success btn-lg col-xs-4 col-md-4 col-xs-offset-4 .col-md-offset-4' %>
+              </div>
+            </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

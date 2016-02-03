@@ -1,0 +1,104 @@
+// Place all the styles related to the cities controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#fight_result{
+  height: 300px;
+}
+#fight_result_notice{
+  font-size: 105px;
+}
+#fight_result_population{
+  margin-top: 40px;
+  font-size: 35px;
+}
+
+#exTab1 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+#exTab2 h3 {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+/* remove border radius for the tab */
+#exTab1 .nav-pills > li > a {
+  border-radius: 0;
+}
+
+/* change border radius for the tab , apply corners on top*/
+
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+#exTab3 .nav-pills > li {
+  border-radius: 4px 4px 0 0 ;
+  background-color: #f1f7ee;
+}
+
+#exTab3 .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+#myShip {
+  border-radius: 4px 4px 4px 4px ;
+  border: solid #d9edf7 2px;
+  background-color: #d9edf7;
+  width: 220px;
+  height: 180px;
+  background: url(image_path('StarDefender.jpg')) no-repeat center;
+
+}
+
+#building_item_1, #building_item_2{
+  border-radius: 4px 4px 4px 4px ;
+  border: solid #d9edf7 2px;
+  width: 150px;
+  height: 150px;
+  margin: 5px;
+}
+
+#building_item_1 {
+  background: url(image_path('Minera_Sucker.jpg')) no-repeat center;
+}
+#building_item_2 {
+  background: url(image_path('Energy_Generator.jpg')) no-repeat center;
+}
+
+#unit_item_1, #unit_item_2, #unit_item_3, #unit_item_4{
+  border-radius: 3px 3px 3px 3px ;
+  border: solid #d9edf7 2px;
+  width: 110px;
+  height: 110px;
+  margin: 8px 8px 0px 8px;
+  background-size:cover;
+}
+
+#unit_item_1 {
+  background-image: url(image_path('gunboat_2_small.jpg'));
+}
+#unit_item_2 {
+  background-image: url(image_path('TIE_Fire_Control_small.jpg'));
+}
+#unit_item_3 {
+  background-image: url(image_path('X-TIE-Fighter_small.jpg'));
+}
+#unit_item_4 {
+  background-image: url(image_path('T65XJ5_Stealth_small.jpg'));
+}
+
+.unit-delete-button{
+  margin-left: 15px;
+  width: 110px;
+}
+
+
+//Annie1842
+//Amjilt1000

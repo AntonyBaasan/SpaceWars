@@ -1,0 +1,51 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require toastr/toastr
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
+
+
+body {
+  background: url(image_path('milky_way_stars_space.jpg')) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  //margin-top: 60px;
+  font-family: "Droid Sans", arial, verdana, sans-serif;
+
+}
+
+.panel-transparent {
+  background: none;
+}
+
+.panel-transparent .panel-heading{
+  background: rgba(122, 130, 136, 0.7)!important;
+  color: white;
+}
+
+.panel-transparent .panel-body{
+  background: rgba(46, 51, 56, 0.7)!important;
+  color: white;
+}
+
+.modal-dialog-center {
+  margin-top: 15%;
+}
+
