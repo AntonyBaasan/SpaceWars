@@ -41,5 +41,4 @@ node_modules
 # Hide database config file.
 config/database.yml
 
-# Ignore the secrets.yml file for storing keys
-/config/secrets.yml
+config/secrets.yml
