@@ -38,3 +38,7 @@ bower.json
 .idea
 
 node_modules
+# Hide database config file.
+config/database.yml
+
+config/secrets.yml
